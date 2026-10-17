@@ -1,0 +1,9 @@
+---
+title: "Dashboard"
+subtitle: "Analysis"
+format:
+  html:
+    toc: false
+---
+
+{{< marimo cell="cell-2" >}}

@@ -94,4 +94,4 @@ This may become easier as marimo Studio matures. For now, I am treating the setu
 
 ## Next steps
 
-The prototype is now committed in the site repository and uses a pinned, portable Studio preview wheel. I still need to create the site's normal navigation and landing page, and then begin migrating selected posts from the [old blog](https://nasheqlbrm.github.io/blog).
+The prototype is now committed in the site repository and uses a pinned, portable Studio preview wheel. The [old blog](https://nasheqlbrm.github.io/blog) will remain as an archive. Future writing will happen here.

@@ -16,7 +16,7 @@ I am building a new home for my technical writing at [kaushiksinha.com](https://
 
 The notebook should own the computation, controls, and decisions. A published view should own the presentation.
 
-That separation sounds simple:
+The idea was simple:
 
 1. Author the analysis in a marimo notebook.
 2. Create a Studio view from the notebook.
@@ -70,13 +70,13 @@ Moving the slider to 36 changed the Quarto view to:
 
 > The square of 36 is 1296.
 
-That small example tested the complete path rather than just checking that the editor opened.
+This small example tested the complete path rather than just checking that the editor opened.
 
 ## Reproduce this setup
 
 The original experiment required a local Studio source checkout and a frontend build. That was useful for understanding the missing browser assets, but it is no longer the recommended setup.
 
-The current project uses a pinned Studio preview wheel that includes both the Quarto provider and the browser assets. The up-to-date cold-start instructions are in the repository `README.md`; they require only `uv` and Quarto in addition to Python.
+The current project uses a pinned Studio preview wheel that includes both the Quarto provider and the browser assets. The current setup instructions are in the repository `README.md`. They require only `uv` and Quarto in addition to Python.
 
 The preview wheel is still not a stable release, so its version should be revisited when marimo Studio publishes the Quarto provider through its normal release channel.
 
@@ -86,11 +86,11 @@ The difficult part was not Quarto itself. Quarto was already installed and could
 
 The experiment also clarified the boundary between the tools:
 
-- **marimo** owns the notebook and its reactive computation;
-- **Studio** connects notebook results to named views;
+- **marimo** owns the notebook and its reactive computation.
+- **Studio** connects notebook results to named views.
 - **Quarto** supplies the document structure and presentation.
 
-This may become easier as marimo Studio matures. For now, I am treating the setup as an experiment rather than a final installation recipe. The important result is that the architecture works: a control in a marimo notebook can drive a polished Quarto view.
+This may become easier as marimo Studio matures. For now, I am treating the setup as an experiment rather than a final installation recipe. What mattered to me was seeing that a control in a marimo notebook could drive a polished Quarto view.
 
 ## Next steps
 

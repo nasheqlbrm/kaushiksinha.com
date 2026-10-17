@@ -28,21 +28,45 @@ The fix was to build Studio from its source repository. That required the JavaSc
 
 Fortunately, the source setup had also installed Node.js 24.19.0 in its Python environment. Running the build with that Node version produced the browser assets successfully.
 
-## The second obstacle
+## A minimal notebook
 
-The first notebook draft also failed for a simpler reason: its reactive dependency graph was incomplete. A cell referred to `mo` without defining it, and another referred to `total` without computing it.
+The smallest useful test is a notebook with one control, one computation, and one displayed result:
 
-The repaired notebook has three explicit steps:
+```python
+import marimo
 
-- import marimo and create the `Rounds` slider;
-- compute `total` from the current slider value;
-- render the result as Markdown.
+app = marimo.App()
 
-Once the slider was returned as a visible cell output, the Quarto view became interactive. Moving the slider to 36 changed the published result to:
+
+@app.cell
+def _():
+    import marimo as mo
+
+    rounds = mo.ui.slider(1, 100, value=10, label="Rounds")
+    rounds
+    return mo, rounds
+
+
+@app.cell
+def _(rounds):
+    total = rounds.value**2
+    return (total,)
+
+
+@app.cell
+def _(mo, rounds, total):
+    mo.md(f"The square of **{rounds.value}** is **{total}**.")
+
+
+if __name__ == "__main__":
+    app.run()
+```
+
+Moving the slider to 36 changed the Quarto view to:
 
 > The square of 36 is 1296.
 
-That small example was useful because it tested the complete path rather than just checking that the editor opened.
+That small example tested the complete path rather than just checking that the editor opened.
 
 ## What I learned
 

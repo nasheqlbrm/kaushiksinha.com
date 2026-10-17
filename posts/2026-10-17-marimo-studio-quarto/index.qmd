@@ -1,0 +1,61 @@
+---
+title: "A First Experiment with marimo Studio and Quarto"
+author: "Kaushik Sinha"
+date: 2026-10-17
+categories: [marimo, quarto, publishing]
+draft: true
+---
+
+I am building a new home for my technical writing at [kaushiksinha.com](https://kaushiksinha.com/). I wanted the freedom of a notebook for exploration, but I also wanted the typography and structure of a proper article. That led me to an experiment with [marimo](https://marimo.io/), [marimo Studio](https://github.com/marimo-team/marimo-studio), and [Quarto](https://quarto.org/).
+
+## The idea
+
+The notebook should own the computation, controls, and decisions. A published view should own the presentation.
+
+That separation sounds simple:
+
+1. Author the analysis in a marimo notebook.
+2. Create a Studio view from the notebook.
+3. Use Quarto to present the view as a polished document.
+
+To test the pipeline, I made a tiny notebook with a slider. The notebook computes the square of the selected number, and the Quarto view displays the result.
+
+## The first obstacle
+
+The Quarto provider was available in the development version of marimo Studio, but installing that development package did not provide the browser assets needed by the Studio server. The editor started, but the browser returned an HTTP 500 because `build-meta.json` was missing.
+
+The fix was to build Studio from its source repository. That required the JavaScript build toolchain in addition to the Python environment. The first build attempt used Node.js 26 and stopped because one of the frontend scripts still passed `--experimental-transform-types`, an option that Node 26 no longer accepts.
+
+Fortunately, the source setup had also installed Node.js 24.19.0 in its Python environment. Running the build with that Node version produced the browser assets successfully.
+
+## The second obstacle
+
+The first notebook draft also failed for a simpler reason: its reactive dependency graph was incomplete. A cell referred to `mo` without defining it, and another referred to `total` without computing it.
+
+The repaired notebook has three explicit steps:
+
+- import marimo and create the `Rounds` slider;
+- compute `total` from the current slider value;
+- render the result as Markdown.
+
+Once the slider was returned as a visible cell output, the Quarto view became interactive. Moving the slider to 36 changed the published result to:
+
+> The square of 36 is 1296.
+
+That small example was useful because it tested the complete path rather than just checking that the editor opened.
+
+## What I learned
+
+The difficult part was not Quarto itself. Quarto was already installed and could render the document. The friction came from using an unreleased Studio provider and therefore needing to build Studio's browser assets locally.
+
+The experiment also clarified the boundary between the tools:
+
+- **marimo** owns the notebook and its reactive computation;
+- **Studio** connects notebook results to named views;
+- **Quarto** supplies the document structure and presentation.
+
+This may become easier as marimo Studio matures. For now, I am treating the setup as an experiment rather than a final installation recipe. The important result is that the architecture works: a control in a marimo notebook can drive a polished Quarto view.
+
+## Next steps
+
+The prototype is now committed in the site repository. I still need to make the Studio dependency portable, create the site's normal navigation and landing page, and then begin migrating selected posts from the old blog.

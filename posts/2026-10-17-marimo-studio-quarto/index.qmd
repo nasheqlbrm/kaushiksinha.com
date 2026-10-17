@@ -3,7 +3,7 @@ title: "A First Experiment with marimo Studio and Quarto"
 author: "Kaushik Sinha"
 date: 2026-10-17
 categories: [marimo, quarto, publishing]
-draft: true
+draft: false
 format:
   html:
     toc: true

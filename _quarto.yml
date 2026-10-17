@@ -1,0 +1,27 @@
+project:
+  type: website
+  render:
+    - index.qmd
+    - about.qmd
+    - posts
+
+website:
+  title: "Kaushik Sinha"
+  site-url: https://kaushiksinha.com
+  description: "Notes on things I find interesting"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Blog
+    right:
+      - about.qmd
+      - icon: github
+        text: GitHub
+        href: https://github.com/nasheqlbrm
+      - text: Archive
+        href: https://nasheqlbrm.github.io/blog
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css

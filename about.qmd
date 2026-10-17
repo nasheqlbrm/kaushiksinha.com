@@ -1,0 +1,7 @@
+---
+title: "About"
+---
+
+I am Kaushik Sinha. This is my new home for notes on things I find interesting.
+
+The [archive](https://nasheqlbrm.github.io/blog) contains posts from my old blog.

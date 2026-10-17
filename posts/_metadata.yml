@@ -1,0 +1,4 @@
+# Options shared by posts in this folder.
+
+freeze: true
+title-block-banner: true

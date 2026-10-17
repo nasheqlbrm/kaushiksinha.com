@@ -263,7 +263,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "marimo", specifier = ">=0.25.1" },
-    { name = "marimo-studio", editable = "../marimo-studio/packages/marimo-studio" },
+    { name = "marimo-studio", url = "https://github.com/marimo-team/marimo-studio/releases/download/preview/marimo_studio-0.3.1.dev30-py3-none-any.whl" },
 ]
 
 [[package]]
@@ -380,8 +380,8 @@ wheels = [
 
 [[package]]
 name = "marimo-studio"
-version = "0.3.0"
-source = { editable = "../marimo-studio/packages/marimo-studio" }
+version = "0.3.1.dev30"
+source = { url = "https://github.com/marimo-team/marimo-studio/releases/download/preview/marimo_studio-0.3.1.dev30-py3-none-any.whl" }
 dependencies = [
     { name = "agent-plugins" },
     { name = "click" },
@@ -395,6 +395,9 @@ dependencies = [
     { name = "tree-sitter-javascript" },
     { name = "watchdog" },
 ]
+wheels = [
+    { url = "https://github.com/marimo-team/marimo-studio/releases/download/preview/marimo_studio-0.3.1.dev30-py3-none-any.whl", hash = "sha256:d209d067de20e75f69368937eafd9b6935f436c5a52d2af6f89d17ea9daa1a4c" },
+]
 
 [package.metadata]
 requires-dist = [
@@ -405,7 +408,7 @@ requires-dist = [
     { name = "marimo", specifier = "==0.25.1" },
     { name = "marimo-export", specifier = ">=0.2.1" },
     { name = "marimo-lens", marker = "extra == 'lens'", specifier = ">=0.2.3" },
-    { name = "marimo-studio", extras = ["deno", "lens"], marker = "extra == 'recommended'", editable = "../marimo-studio/packages/marimo-studio" },
+    { name = "marimo-studio", extras = ["deno", "lens"], marker = "extra == 'recommended'" },
     { name = "markupsafe", specifier = ">=3" },
     { name = "packaging", specifier = ">=25" },
     { name = "tomli", marker = "python_full_version < '3.11'", specifier = ">=2" },
@@ -415,7 +418,7 @@ requires-dist = [
     { name = "typst", marker = "extra == 'typst'", specifier = ">=0.15" },
     { name = "watchdog", specifier = ">=6.0.0" },
 ]
-provides-extras = ["deno", "lens", "typst", "recommended"]
+provides-extras = ["deno", "lens", "recommended", "typst"]
 
 [[package]]
 name = "markdown"

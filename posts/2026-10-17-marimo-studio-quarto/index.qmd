@@ -74,43 +74,11 @@ That small example tested the complete path rather than just checking that the e
 
 ## Reproduce this setup
 
-The following is the source-build workflow I used on macOS. It reflects the state of the tools on 17 October 2026; a later Studio release may make some of these steps unnecessary.
+The original experiment required a local Studio source checkout and a frontend build. That was useful for understanding the missing browser assets, but it is no longer the recommended setup.
 
-First install Pixi with its official installer and make it available in the current shell:
+The current project uses a pinned Studio preview wheel that includes both the Quarto provider and the browser assets. The up-to-date cold-start instructions are in the repository `README.md`; they require only `uv` and Quarto in addition to Python.
 
-```bash
-curl -fsSL https://pixi.sh/install.sh | sh
-source ~/.zshrc
-```
-
-The frontend build also needs pnpm. With Node.js installed, install the version specified by Studio:
-
-```bash
-npm install --global pnpm@11.28.2
-```
-
-Clone Studio beside the blog repository and run its setup:
-
-```bash
-git clone https://github.com/marimo-team/marimo-studio.git
-cd marimo-studio
-make setup
-```
-
-If the setup reaches the frontend build with Node.js 26 and reports `bad option: --experimental-transform-types`, rerun it with the Node.js 24.19.0 binary that the setup placed in the Python environment:
-
-```bash
-PATH="$PWD/.venv/lib/python3.12/site-packages/nodejs_wheel/bin:$PATH" make setup
-```
-
-In the blog project, point `marimo-studio` at the pinned preview wheel while the Quarto provider remains unreleased:
-
-```toml
-[tool.uv.sources]
-marimo-studio = { url = "https://github.com/marimo-team/marimo-studio/releases/download/preview/marimo_studio-0.3.1.dev30-py3-none-any.whl" }
-```
-
-Then run `uv sync`, open the notebook with marimo, create a view, and choose **Quarto document**. The wheel includes both the Quarto provider and the browser assets, so another machine does not need a sibling Studio checkout. It is still a preview release, so the dependency should be revisited when a stable package includes the provider.
+The preview wheel is still not a stable release, so its version should be revisited when marimo Studio publishes the Quarto provider through its normal release channel.
 
 ## What I learned
 

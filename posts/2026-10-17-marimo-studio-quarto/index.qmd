@@ -68,6 +68,46 @@ Moving the slider to 36 changed the Quarto view to:
 
 That small example tested the complete path rather than just checking that the editor opened.
 
+## Reproduce this setup
+
+The following is the source-build workflow I used on macOS. It reflects the state of the tools on 17 October 2026; a later Studio release may make some of these steps unnecessary.
+
+First install Pixi with its official installer and make it available in the current shell:
+
+```bash
+curl -fsSL https://pixi.sh/install.sh | sh
+source ~/.zshrc
+```
+
+The frontend build also needs pnpm. With Node.js installed, install the version specified by Studio:
+
+```bash
+npm install --global pnpm@11.28.2
+```
+
+Clone Studio beside the blog repository and run its setup:
+
+```bash
+git clone https://github.com/marimo-team/marimo-studio.git
+cd marimo-studio
+make setup
+```
+
+If the setup reaches the frontend build with Node.js 26 and reports `bad option: --experimental-transform-types`, rerun it with the Node.js 24.19.0 binary that the setup placed in the Python environment:
+
+```bash
+PATH="$PWD/.venv/lib/python3.12/site-packages/nodejs_wheel/bin:$PATH" make setup
+```
+
+In the blog project, point `marimo-studio` at the locally built package while the Quarto provider remains unreleased:
+
+```toml
+[tool.uv.sources]
+marimo-studio = { path = "../marimo-studio/packages/marimo-studio", editable = true }
+```
+
+Then open the notebook with marimo, create a view, and choose **Quarto document**. The local path is deliberately temporary: once a published Studio package includes the provider and browser assets, the project should switch to that package.
+
 ## What I learned
 
 The difficult part was not Quarto itself. Quarto was already installed and could render the document. The friction came from using an unreleased Studio provider and therefore needing to build Studio's browser assets locally.
